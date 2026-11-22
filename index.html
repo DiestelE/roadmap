@@ -13,67 +13,70 @@
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#eef3f1;--surface:#fff;--ink:#14302b;--muted:#5b716c;--line:#cfdcd8;--accent:#0f766e;--accent-ink:#fff;--done:#b45309;--track:#dbe6e3}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b19;--surface:#15272a;--ink:#e6f1ee;--muted:#93aaa5;--line:#27403f;--accent:#2dd4bf;--accent-ink:#06201c;--done:#fbbf24;--track:#1f3836}}
-:root[data-theme="dark"]{--bg:#0e1b19;--surface:#15272a;--ink:#e6f1ee;--muted:#93aaa5;--line:#27403f;--accent:#2dd4bf;--accent-ink:#06201c;--done:#fbbf24;--track:#1f3836}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1b19;--surface:#15272a;--ink:#e6f1ee;--muted:#93aaa5;--line:#27403f;--done:#fbbf24;--track:#1f3836}}
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Sora,system-ui,-apple-system,"Segoe UI",sans-serif}
 main{max-width:780px;margin:0 auto;padding:28px 16px 64px}
 h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.1;margin:0 0 6px;font-weight:700;letter-spacing:-.02em}
-.sub{color:var(--muted);margin:0 0 22px}
-.total{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:28px}
-.total b{font-size:2rem;font-weight:700}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.pad{padding:14px 16px;margin-bottom:14px}
+.total b{font-size:2rem}
 .bar{height:8px;background:var(--track);border-radius:99px;overflow:hidden;margin-top:10px}
 .bar>i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .25s}
-.road{position:relative;margin:0;padding:0;list-style:none}
+.bar.gold{margin-top:5px;height:6px}.bar.gold>i{background:var(--done)}
+.legend{margin:8px 0 0;font-size:.8rem;color:var(--muted)}
+.bars{margin:0 16px 14px}
+.sw{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.sw button.c{width:30px;height:30px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line);padding:0}
+.sw button.c[aria-pressed=true]{box-shadow:0 0 0 3px var(--ink)}
+input[type=color]{width:36px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:none}
+input[type=text],input[type=url],input[type=email],input[type=password],textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%}
+textarea{min-height:80px;resize:vertical}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+.small{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:5px 10px;font-size:.85rem}
+.small[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.primary{background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:10px;padding:8px 14px;font-weight:600;white-space:nowrap}
+.add{display:flex;gap:8px;margin:12px 0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.road{position:relative;margin:18px 0 0;padding:0;list-style:none}
 .road::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:3px;background:var(--line)}
 .stage{position:relative;padding-left:56px;margin-bottom:18px}
 .node{position:absolute;left:0;top:6px;width:40px;height:40px;border-radius:50%;background:var(--surface);border:3px solid var(--line);display:grid;place-items:center;font-weight:700}
 .stage.cur .node{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
 .stage.full .node{border-color:var(--done);color:var(--done)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px}
 .head{width:100%;text-align:left;display:block;border:0;background:none;padding:14px 16px;border-radius:14px}
 .head .t{font-weight:700;font-size:1.15rem}
-.head .d{color:var(--muted);font-size:.88rem;display:block}
-.head .c{float:right;color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums}
+.head .c{float:right;color:var(--muted);font-size:.88rem}
 .badge{display:inline-block;background:var(--accent);color:var(--accent-ink);font-size:.75rem;font-weight:600;padding:1px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
-.bars{margin:0 16px 14px}
 .body{display:none;padding:0 16px 16px;border-top:1px solid var(--line)}
 .stage.open .body{display:block}
-.topic{padding:10px 0;border-bottom:1px solid var(--line)}
-.row{display:flex;align-items:center;gap:10px}
-.row input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);flex:none}
-.nm{flex:1;font-weight:600}
+.acts{display:flex;gap:6px;flex-wrap:wrap;padding:10px 0}
+.topic{padding:12px 0;border-bottom:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nm{flex:1;font-weight:600;min-width:120px}
 .topic.done .nm{text-decoration:line-through;text-decoration-color:var(--done);color:var(--muted)}
-.why{color:var(--muted);font-size:.85rem;margin:0}
-.note{display:none;margin:8px 0 0;gap:8px}
-.topic.open .note{display:grid}
-input[type=text],textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%}
-textarea{min-height:80px;resize:vertical}
-button{font:inherit;cursor:pointer;color:var(--ink)}
-.small{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:5px 10px;font-size:.85rem}
-.primary{background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:10px;padding:8px 14px;font-weight:600;white-space:nowrap}
-.add{display:flex;gap:8px;margin-top:12px}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.sel{font:inherit;font-size:.85rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:5px 8px}
-.row{flex-wrap:wrap}
+.wt{display:flex;align-items:center;gap:4px;font-size:.82rem;color:var(--muted)}
 .seg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .seg button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:5px 12px;font-size:.82rem}
 .seg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .seg button.g[aria-pressed=true]{background:var(--done);border-color:var(--done)}
-.opts{display:grid;gap:0;margin-top:6px}
-.opt{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--ink);text-decoration:none;font-size:.92rem}
-.opt:hover span:last-child{text-decoration:underline}
+.det{display:none;margin-top:12px;gap:12px}
+.topic.open .det{display:grid}
+h3{font-size:.95rem;margin:0 0 4px}
+.lnk{display:flex;align-items:center;gap:10px;padding:4px 0}
+.lnk a{flex:1;color:var(--ink);word-break:break-word}
 .o{width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);flex:none}
-.opt.on .o{background:var(--accent)}
-.bar.gold{margin-top:5px;height:6px}
-.bar.gold>i{background:var(--done)}
-.legend{margin:8px 0 0;font-size:.8rem;color:var(--muted)}
+.lnk.on .o{background:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-top:6px}
+.tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.pc{width:24px;height:24px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line);padding:0}
+.pc[aria-pressed=true]{box-shadow:0 0 0 3px var(--ink)}
+canvas{width:100%;height:auto;aspect-ratio:3/2;background:var(--bg);border:1px solid var(--line);border-radius:10px;touch-action:none;display:block;cursor:crosshair}
+.empty{color:var(--muted);text-align:center;padding:24px}
 footer{margin-top:10px;display:grid;gap:10px;justify-items:start}
-[hidden]{display:none!important}
-.authbox{padding:16px;width:100%}
-.authbox form{display:grid;gap:8px}
-input[type=email],input[type=password]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%}
+.authbox{padding:16px;width:100%}.authbox form{display:grid;gap:8px}
 .arow{display:flex;gap:8px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){.bar>i{transition:none}}
 </style>
@@ -81,13 +84,21 @@ input[type=email],input[type=password]{font:inherit;color:var(--ink);background:
 <body>
 <main>
   <h1>Meine Roadmap</h1>
-  <p class="sub">Von der Grundausstattung bis zum Fortgeschrittenen. Arbeite die Stationen von oben nach unten ab.</p>
-  <section class="total" aria-live="polite">
+  <p class="sub">Eigene Kategorien, eigene Themen, eigenes Lernmaterial.</p>
+  <section class="card pad total" aria-live="polite">
     <b id="tp">0 %</b> <span id="tt" class="sub"></span>
     <div class="bar"><i id="tb" style="width:0"></i></div>
     <div class="bar gold"><i id="tg" style="width:0"></i></div>
-    <p class="legend">Türkis: Fortschritt, voll bei „Kann es“. Gold: gemeistert.</p>
+    <p class="legend">Farbig: Fortschritt, voll bei „Kann es“. Gold: gemeistert. Beides nach Gewichtung der Themen.</p>
   </section>
+  <section class="card pad">
+    <b>Designfarbe</b>
+    <div class="sw" id="sw"></div>
+  </section>
+  <form class="add" id="cf">
+    <input type="text" id="cn" placeholder="Neue Kategorie, z. B. Grundlagen" aria-label="Neue Kategorie" maxlength="60">
+    <button class="primary" type="submit">Hinzufügen</button>
+  </form>
   <ol class="road" id="road"></ol>
   <footer>
     <section class="card authbox" id="auth" hidden>
@@ -101,99 +112,124 @@ input[type=email],input[type=password]{font:inherit;color:var(--ink);background:
     </section>
     <p class="sub" id="sync" aria-live="polite">Verbindung wird geprüft …</p>
     <button class="small" id="lo" hidden>Abmelden</button>
-    <button class="small" id="rs">Auf Anfangsliste zurücksetzen</button>
+    <button class="small" id="rs">Alles löschen</button>
   </footer>
 </main>
 <script>
 (function(){
-var KEY="roadmap-v2";
-var START=[
-["Grundausstattung","Das brauchst du für alles andere.",[["Terminal und Bash","Dateien, Rechte, Skripte"],["Git und GitHub","Versionsverwaltung, Projekte ablegen"],["VS Code","Editor für fast alle Sprachen"],["Python Grundlagen","Variablen, Schleifen, Funktionen, Klassen"],["Einführung ins Programmieren","Wie Programme gedacht und aufgebaut werden"],["Python-Umgebungen und Pakete","venv, pip"]]],
-["Spiele","Spaß zuerst: kleine Spiele bauen und dabei lernen.",[["Spiele-Grundlagen","Game Loop, Sprites, Kollision"],["pygame","Erste 2D-Spiele mit Python"],["Godot und GDScript","Open-Source-Engine, läuft gut unter Linux"],["GIMP und Krita","Grafiken und Pixel-Art"],["Blender","3D-Modelle und Animationen"],["C# und Unity","Größere Spiele"],["C++ und Unreal Engine","Große 3D-Spiele, später"]]],
-["Webentwicklung","Websites und Web-Apps.",[["HTML","Struktur von Websites"],["CSS","Gestaltung, Layout, responsives Design"],["JavaScript","Interaktive Seiten, Browser-Spiele"],["Browser-Entwicklertools","F12: testen und Fehler finden"],["SQL","Datenbanken abfragen"],["TypeScript","JavaScript mit Typen"],["Node.js","JavaScript auf dem Server"],["React","Moderne Web-Apps"],["Figma","Entwürfe für Oberflächen"],["APIs und Postman oder Bruno","Schnittstellen nutzen und testen"]]],
-["KI","Vom Datenverstehen bis zu eigenen Modellen.",[["Mathe-Grundlagen","Lineare Algebra, Analysis, Statistik"],["NumPy","Rechnen mit Arrays"],["Pandas","Tabellen laden und bereinigen"],["Matplotlib und Jupyter","Diagramme, Notebooks"],["SciPy","Wissenschaftliches Rechnen"],["scikit-learn","Klassisches Machine Learning"],["PyTorch","Neuronale Netze bauen"],["Hugging Face","Fertige Modelle nutzen"],["LLMs und Gen AI","Wie Sprachmodelle funktionieren"],["Ollama und RAG","Lokale Modelle, eigene Dokumente anbinden"]]],
-["Programme","Anwendungen für alle Betriebssysteme.",[["Desktop-Oberflächen mit Qt","PySide oder PyQt, läuft auf Windows, macOS, Linux"],["Rust oder Go","Schnelle, robuste Programme"],["Programme verpacken","AppImage, Flatpak, PyInstaller"],["Tests schreiben","Fehler früh finden"],["Cross-Platform-Builds","Für mehrere Systeme bauen"]]],
-["Server","Eigene Dienste betreiben.",[["Linux-Administration","Benutzer, Rechte, systemd, Updates"],["Netzwerk","IP, Ports, DNS, HTTP und HTTPS"],["SSH und Firewall","Sicher aus der Ferne arbeiten"],["nginx und HTTPS","Websites ausliefern, Zertifikate"],["PostgreSQL oder MySQL","Datenbanken betreiben"],["Docker und Compose","Dienste in Containern"],["Backups und Logs","Sichern, Fehler im Betrieb finden"]]],
-["Fortgeschrittenes","Wenn die Grundlagen sitzen.",[["CI/CD mit GitHub Actions","Automatisch testen und ausliefern"],["Ansible","Server per Skript einrichten"],["Cloud (AWS)","Dienste in der Cloud"],["Kubernetes","Große Container-Setups"],["Monitoring","Prometheus und Grafana"],["Cybersecurity","Systeme und Anwendungen absichern"]]]
-];
-var state=null,openStage=null,openTopic=null,remote=null,timer=null;
-var W="https://www.w3schools.com/";
-var LINKS={"Terminal und Bash":W+"bash/","Git und GitHub":"https://git-scm.com/book/de/v2","VS Code":"https://code.visualstudio.com/docs","Python Grundlagen":W+"python/","Python-Umgebungen und Pakete":"https://docs.python.org/3/tutorial/venv.html","Einführung ins Programmieren":W+"programming/","pygame":"https://www.pygame.org/docs/","Godot und GDScript":"https://docs.godotengine.org/en/stable/getting_started/introduction/index.html","GIMP und Krita":"https://docs.krita.org/en/user_manual/getting_started.html","Blender":"https://www.blender.org/support/tutorials/","C# und Unity":"https://learn.unity.com/","C++ und Unreal Engine":"https://dev.epicgames.com/community/learning","HTML":W+"html/","CSS":W+"css/","JavaScript":W+"js/","Browser-Entwicklertools":"https://firefox-source-docs.mozilla.org/devtools-user/","SQL":W+"sql/","TypeScript":"https://www.typescriptlang.org/docs/","Node.js":"https://nodejs.org/en/learn","React":"https://react.dev/learn","Mathe-Grundlagen":"https://www.khanacademy.org/math/linear-algebra","NumPy":"https://numpy.org/doc/stable/user/absolute_beginners.html","Pandas":"https://pandas.pydata.org/docs/getting_started/intro_tutorials/","Matplotlib und Jupyter":"https://matplotlib.org/stable/users/explain/quick_start.html","SciPy":"https://docs.scipy.org/doc/scipy/tutorial/","scikit-learn":"https://scikit-learn.org/stable/user_guide.html","PyTorch":"https://pytorch.org/tutorials/","Hugging Face":"https://huggingface.co/learn","LLMs und Gen AI":"https://huggingface.co/learn/llm-course","Ollama und RAG":"https://ollama.com/","Desktop-Oberflächen mit Qt":"https://doc.qt.io/qtforpython-6/","Rust oder Go":"https://doc.rust-lang.org/book/","Programme verpacken":"https://pyinstaller.org/en/stable/","Tests schreiben":"https://docs.pytest.org/en/stable/getting-started.html","Linux-Administration":"https://roadmap.sh/linux","nginx und HTTPS":"https://nginx.org/en/docs/beginners_guide.html","PostgreSQL oder MySQL":"https://www.postgresql.org/docs/current/tutorial.html","Docker und Compose":"https://docs.docker.com/get-started/","CI/CD mit GitHub Actions":"https://docs.github.com/de/actions","Ansible":"https://docs.ansible.com/ansible/latest/getting_started/index.html","Cloud (AWS)":W+"aws/","Kubernetes":"https://kubernetes.io/docs/tutorials/","Monitoring":"https://prometheus.io/docs/introduction/overview/","Cybersecurity":W+"cybersecurity/"};
-function linkFor(n){return LINKS[n]||("https://duckduckgo.com/?q="+encodeURIComponent(n+" Tutorial"))}
-function fresh(){return START.map(function(s,i){return {id:"s"+i,title:s[0],desc:s[1],topics:s[2].map(function(t,j){return {id:"s"+i+"t"+j,name:t[0],why:t[1],done:false,note:""}})}})}
-function load(){try{var r=localStorage.getItem(KEY);if(r){var d=JSON.parse(r);if(Array.isArray(d)&&d.length)return d}}catch(e){}return fresh()}
-var lastTs=0,unsub=null,fb=null;
+var KEY="roadmap-v3",PV=[0,50,100,100],LV=["Noch nichts","Grundkenntnisse","Kann es","Gemeistert"];
+var COLORS=["#0f766e","#2563eb","#7c3aed","#db2777","#dc2626","#ea580c","#16a34a","#475569"];
+var PEN=["ink","#e11d48","#2563eb","#16a34a","#d97706"];
+var state=null,openCat=null,openTopic=null,remote=null,timer=null,lastTs=0,unsub=null,fb=null,tool="pen",pen="ink";
+function uid(){return "i"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function fresh(){return {theme:{accent:COLORS[0]},cats:[]}}
+function norm(st){if(!st||!Array.isArray(st.cats))st=fresh();
+  if(!st.theme||!/^#[0-9a-f]{6}$/i.test(st.theme.accent))st.theme={accent:COLORS[0]};
+  st.cats.forEach(function(c){c.topics=Array.isArray(c.topics)?c.topics:[];c.topics.forEach(function(t){
+    t.skill=[0,1,2,3].indexOf(t.skill)>=0?t.skill:0;t.w=Math.min(10,Math.max(1,+t.w||1));
+    t.links=Array.isArray(t.links)?t.links:[];t.note=t.note||"";t.draw=Array.isArray(t.draw)?t.draw:[]})});
+  return st}
+function load(){try{var r=localStorage.getItem(KEY);if(r)return norm(JSON.parse(r))}catch(e){}return fresh()}
 try{lastTs=+localStorage.getItem(KEY+"-ts")||0}catch(e){}
 function setSync(m){var e=document.getElementById("sync");if(e)e.textContent=m}
-function storeLocal(){try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(KEY+"-ts",String(lastTs))}catch(e){}}
-function pushNow(){if(!remote||!fb)return;fb.F.setDoc(remote,{json:JSON.stringify(state),updated:lastTs}).then(function(){setSync("Synchronisiert ✓")}).catch(function(e){setSync("Synchronisieren fehlgeschlagen: "+(e.code||e.message))})}
+function storeLocal(){try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(KEY+"-ts",String(lastTs))}catch(e){setSync("Achtung: Der Browser blockiert das Speichern auf diesem Gerät.")}}
+function pushNow(){if(!remote||!fb)return;var j=JSON.stringify(state);
+  if(j.length>900000){setSync("Zu viele Zeichnungen zum Synchronisieren. Lösche ein paar Striche oder Zeichnungen.");return}
+  fb.F.setDoc(remote,{json:j,updated:lastTs}).then(function(){setSync("Synchronisiert ✓")}).catch(function(e){setSync("Synchronisieren fehlgeschlagen: "+(e.code||e.message))})}
 function save(){lastTs=Date.now();storeLocal();if(remote){clearTimeout(timer);timer=setTimeout(pushNow,500)}}
-function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-var LV=["Noch nichts","Grundkenntnisse","Kann es","Gemeistert"],PV=[0,50,100,100];
-function norm(st){st.forEach(function(s){s.topics.forEach(function(t){if(t.skill==null)t.skill=t.done?3:0;delete t.done;delete t.lvl})});return st}
-function stat(s){var sum=0,m=0;s.topics.forEach(function(t){sum+=PV[t.skill];if(t.skill===3)m++});var n=s.topics.length;return {n:n,m:m,p:n?Math.round(sum/n):0,g:n?Math.round(m/n*100):0}}
-function curIdx(){for(var i=0;i<state.length;i++){var c=stat(state[i]);if(c.m<c.n)return i}return -1}
-function opts(name){return [["Dokumentation und Tutorial",linkFor(name)],["Videos auf Deutsch (YouTube-Suche)","https://www.youtube.com/results?search_query="+encodeURIComponent(name+" Tutorial Deutsch")],["Kostenloser Kurs zum Mitmachen (Suche)","https://duckduckgo.com/?q="+encodeURIComponent(name+" kostenloser Kurs Anfänger")]]}
+function safeUrl(u){u=(u||"").trim();if(!u)return null;if(!/^https?:\/\//i.test(u))u="https://"+u;try{var x=new URL(u);return (x.protocol==="http:"||x.protocol==="https:")?x.href:null}catch(e){return null}}
+function stat(ts){var W=0,P=0,G=0,m=0;ts.forEach(function(t){W+=t.w;P+=t.w*PV[t.skill];if(t.skill===3){G+=t.w*100;m++}});return {n:ts.length,m:m,p:W?Math.round(P/W):0,g:W?Math.round(G/W):0}}
+function applyTheme(){var c=state.theme.accent,r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16),L=(0.299*r+0.587*g+0.114*b)/255,s=document.documentElement.style;
+  s.setProperty("--accent",c);s.setProperty("--accent-ink",L>0.6?"#0b1412":"#ffffff");var m=document.querySelector("meta[name=theme-color]");if(m)m.content=c}
 function bars(p,g){var w=el("div","bars"),a=el("div","bar"),i=el("i"),b=el("div","bar gold"),j=el("i");i.style.width=p+"%";j.style.width=g+"%";a.appendChild(i);b.appendChild(j);w.append(a,b);return w}
+function btn(txt,fn,cls){var b=el("button",cls||"small",txt);b.type="button";b.onclick=fn;return b}
+
+function makeCanvas(tp){
+  var wrap=el("div"),tb=el("div","tools"),cv=el("canvas");cv.width=600;cv.height=400;cv.setAttribute("aria-label","Zeichenfläche für Mindmaps");
+  var ctx=cv.getContext("2d"),cur=null;
+  function col(c){return c==="ink"?(getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#000"):c}
+  function stroke(it){var p=it.p;ctx.strokeStyle=col(it.c);ctx.lineWidth=3;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();ctx.moveTo(p[0],p[1]);if(p.length===2)ctx.lineTo(p[0]+.1,p[1]);for(var i=2;i<p.length;i+=2)ctx.lineTo(p[i],p[i+1]);ctx.stroke()}
+  function paint(){ctx.clearRect(0,0,600,400);tp.draw.forEach(function(it){if(it.t==="t"){ctx.fillStyle=col(it.c);ctx.font="20px Sora,system-ui,sans-serif";ctx.fillText(it.s,it.x,it.y)}else stroke(it)});if(cur)stroke(cur)}
+  function pos(e){var r=cv.getBoundingClientRect();return [Math.round((e.clientX-r.left)*600/r.width),Math.round((e.clientY-r.top)*400/r.height)]}
+  cv.onpointerdown=function(e){var p=pos(e);
+    if(tool==="text"){var s=prompt("Text eingeben:");if(s&&s.trim()){tp.draw.push({t:"t",c:pen,x:p[0],y:p[1],s:s.trim().slice(0,80)});save();paint()}return}
+    cur={t:"s",c:pen,p:[p[0],p[1]]};try{cv.setPointerCapture(e.pointerId)}catch(x){}paint()};
+  cv.onpointermove=function(e){if(!cur)return;var p=pos(e),n=cur.p.length,dx=p[0]-cur.p[n-2],dy=p[1]-cur.p[n-1];if(dx*dx+dy*dy<9)return;cur.p.push(p[0],p[1]);paint()};
+  function end(){if(!cur)return;tp.draw.push(cur);cur=null;save();paint()}
+  cv.onpointerup=end;cv.onpointercancel=end;
+  var tools=[],pens=[];
+  function mark(){tools.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.k===tool)});pens.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.k===pen)})}
+  [["pen","Stift"],["text","Text"]].forEach(function(t){var b=btn(t[1],function(){tool=t[0];mark()});b.dataset.k=t[0];tools.push(b);tb.appendChild(b)});
+  PEN.forEach(function(c){var b=el("button","pc");b.type="button";b.dataset.k=c;b.style.background=c==="ink"?"var(--ink)":c;b.setAttribute("aria-label","Farbe "+c);b.onclick=function(){pen=c;mark()};pens.push(b);tb.appendChild(b)});
+  tb.appendChild(btn("Rückgängig",function(){tp.draw.pop();save();paint()}));
+  tb.appendChild(btn("Alles löschen",function(){if(tp.draw.length&&confirm("Die ganze Zeichnung löschen?")){tp.draw=[];save();paint()}}));
+  mark();paint();wrap.append(tb,cv);return wrap}
+
+function topicBlock(c,tp){
+  var d=el("div","topic"+(tp.skill===3?" done":"")+(openTopic===tp.id?" open":""));
+  var row=el("div","row");
+  var wt=el("span","wt");wt.append("Gewicht",btn("−",function(){if(tp.w>1){tp.w--;save();render()}}),el("b",null,String(tp.w)),btn("+",function(){if(tp.w<10){tp.w++;save();render()}}));
+  var mb=btn(openTopic===tp.id?"Schließen":"Mehr",function(){openTopic=openTopic===tp.id?null:tp.id;render()});mb.setAttribute("aria-expanded",openTopic===tp.id);
+  row.append(el("span","nm",tp.name),wt,mb);d.appendChild(row);
+  var seg=el("div","seg");seg.setAttribute("role","group");seg.setAttribute("aria-label","Wissensstand bei "+tp.name);
+  LV.forEach(function(l,k){var b=el("button",k===3?"g":"",l);b.type="button";b.setAttribute("aria-pressed",tp.skill===k);b.onclick=function(){tp.skill=k;save();render()};seg.appendChild(b)});
+  d.appendChild(seg);
+  if(openTopic!==tp.id)return d;
+  var det=el("div","det");
+  var lk=el("div");lk.appendChild(el("h3",null,"Lernmaterial"));
+  if(!tp.links.length)lk.appendChild(el("p","sub","Noch keine Links. Füge unten dein Lernmaterial hinzu."));
+  tp.links.forEach(function(l,i){var r=el("div","lnk"+(tp.pick===i?" on":""));r.appendChild(el("span","o"));
+    var a=el("a",null,l.t||l.u);a.href=l.u;a.target="_blank";a.rel="noopener noreferrer";a.onclick=function(){tp.pick=i;save();Array.prototype.forEach.call(lk.querySelectorAll(".lnk"),function(x,q){x.classList.toggle("on",q===i)})};
+    r.append(a,btn("Entfernen",function(){tp.links.splice(i,1);if(tp.pick===i)tp.pick=null;save();render()}));lk.appendChild(r)});
+  var two=el("div","two"),ti=el("input"),ui=el("input"),ab=btn("Hinzufügen",function(){var u=safeUrl(ui.value);if(!u){ui.focus();ui.setCustomValidity("");alert("Bitte gib eine gültige Internetadresse ein.");return}tp.links.push({t:ti.value.trim(),u:u});save();render()},"primary");
+  ti.type="text";ti.placeholder="Bezeichnung (optional)";ti.setAttribute("aria-label","Bezeichnung des Links");ui.type="url";ui.placeholder="https://…";ui.setAttribute("aria-label","Adresse des Lernmaterials");
+  two.append(ti,ui,ab);lk.appendChild(two);det.appendChild(lk);
+  var nt=el("div");nt.appendChild(el("h3",null,"Notizen"));var ta=el("textarea");ta.value=tp.note;ta.placeholder="Notizen, nächster Schritt";ta.setAttribute("aria-label","Notizen zu "+tp.name);ta.oninput=function(){tp.note=ta.value;save()};nt.appendChild(ta);det.appendChild(nt);
+  var dr=el("div");dr.appendChild(el("h3",null,"Zeichenfläche (z. B. Mindmap)"));dr.appendChild(makeCanvas(tp));det.appendChild(dr);
+  var ac=el("div","acts");
+  ac.append(btn("Umbenennen",function(){var n=prompt("Neuer Name:",tp.name);if(n&&n.trim()){tp.name=n.trim().slice(0,80);save();render()}}),
+    btn("Thema löschen",function(){if(confirm("„"+tp.name+"“ wirklich löschen?")){c.topics=c.topics.filter(function(x){return x!==tp});openTopic=null;save();render()}}));
+  det.appendChild(ac);d.appendChild(det);return d}
 
 function render(){
+  applyTheme();
+  var sw=document.getElementById("sw");sw.textContent="";
+  COLORS.forEach(function(c){var b=el("button","c");b.type="button";b.style.background=c;b.setAttribute("aria-label","Farbe "+c);b.setAttribute("aria-pressed",state.theme.accent.toLowerCase()===c);b.onclick=function(){state.theme.accent=c;save();render()};sw.appendChild(b)});
+  var ci=el("input");ci.type="color";ci.value=state.theme.accent;ci.setAttribute("aria-label","Eigene Farbe wählen");ci.onchange=function(){state.theme.accent=ci.value;save();render()};sw.appendChild(ci);
   var road=document.getElementById("road");road.textContent="";
-  var cur=curIdx();
-  if(openStage===null)openStage=cur>=0?state[cur].id:state[0].id;
-  state.forEach(function(s,i){
-    var c=stat(s);
-    var li=el("li","stage"+(i===cur?" cur":"")+(c.n&&c.m===c.n?" full":"")+(openStage===s.id?" open":""));
+  var cur=-1;for(var q=0;q<state.cats.length;q++){var z=stat(state.cats[q].topics);if(z.n&&z.m<z.n){cur=q;break}}
+  if(!state.cats.length)road.appendChild(el("li","empty","Noch nichts da. Lege oben deine erste Kategorie an, zum Beispiel „Grundlagen“ oder „Spiele“."));
+  state.cats.forEach(function(c,i){
+    var s=stat(c.topics);
+    var li=el("li","stage"+(i===cur?" cur":"")+(s.n&&s.m===s.n?" full":"")+(openCat===c.id?" open":""));
     li.appendChild(el("span","node",String(i+1)));
     var card=el("div","card");
-    var h=el("button","head");h.setAttribute("aria-expanded",openStage===s.id);
-    h.appendChild(el("span","c",c.m+" von "+c.n+" gemeistert"));
-    var t=el("span","t",s.title);if(i===cur)t.appendChild(el("span","badge","Jetzt dran"));
-    h.appendChild(t);h.appendChild(el("span","d",s.desc));
-    h.onclick=function(){openStage=openStage===s.id?"":s.id;render()};
-    card.appendChild(h);card.appendChild(bars(c.p,c.g));
-    var body=el("div","body");
-    s.topics.forEach(function(tp){
-      var d=el("div","topic"+(tp.skill===3?" done":"")+(openTopic===tp.id?" open":""));
-      var row=el("div","row");
-      var nm=el("span","nm",tp.name);
-      var seg=el("div","seg");seg.setAttribute("role","group");seg.setAttribute("aria-label","Wissensstand bei "+tp.name);
-      LV.forEach(function(l,k){var b=el("button",k===3?"g":"",l);b.type="button";b.title=PV[k]+" %";b.setAttribute("aria-pressed",tp.skill===k);b.onclick=function(){tp.skill=k;save();render()};seg.appendChild(b)});
-      
-      var nb=el("button","small",openTopic===tp.id?"Schließen":(tp.note?"Notizen •":"Notizen"));
-      nb.setAttribute("aria-expanded",openTopic===tp.id);
-      nb.onclick=function(){openTopic=openTopic===tp.id?null:tp.id;render()};
-      row.append(nm,nb);d.appendChild(row);d.appendChild(seg);
-      if(tp.why)d.appendChild(el("p","why",tp.why));
-      var ol=el("div","opts");
-      opts(tp.name).forEach(function(o,k){
-        var a=el("a","opt"+(tp.pick===k?" on":""));a.href=o[1];a.target="_blank";a.rel="noopener noreferrer";
-        a.appendChild(el("span","o"));a.appendChild(el("span",null,o[0]));
-        a.onclick=function(){tp.pick=k;save();Array.prototype.forEach.call(ol.children,function(x,q){x.classList.toggle("on",q===k)})};
-        ol.appendChild(a);
-      });
-      d.appendChild(ol);
-      var n=el("div","note");
-      var ta=el("textarea");ta.value=tp.note;ta.placeholder="Notizen, Links, nächster Schritt";ta.setAttribute("aria-label","Notizen zu "+tp.name);
-      ta.oninput=function(){tp.note=ta.value;save()};
-      var rm=el("button","small","Thema löschen");rm.onclick=function(){if(confirm("„"+tp.name+"“ wirklich löschen?")){s.topics=s.topics.filter(function(x){return x!==tp});save();render()}};
-      n.append(ta,rm);d.appendChild(n);body.appendChild(d);
-    });
-    var add=el("div","add"),inp=el("input");inp.type="text";inp.placeholder="Thema zu „"+s.title+"“ hinzufügen";inp.setAttribute("aria-label","Neues Thema in "+s.title);
-    var ab=el("button","primary","Hinzufügen");
-    function go(){var v=inp.value.trim();if(!v)return;s.topics.push({id:"u"+Date.now(),name:v,why:"",skill:0,note:""});save();render()}
-    ab.onclick=go;inp.onkeydown=function(e){if(e.key==="Enter")go()};
-    add.append(inp,ab);body.appendChild(add);
-    card.appendChild(body);li.appendChild(card);road.appendChild(li);
-  });
-  var T={n:0,m:0,sum:0};state.forEach(function(s){var c=stat(s);T.n+=c.n;T.m+=c.m;T.sum+=c.p*c.n});
-  var p=T.n?Math.round(T.sum/T.n):0,g=T.n?Math.round(T.m/T.n*100):0;
-  document.getElementById("tp").textContent=p+" %";
-  document.getElementById("tb").style.width=p+"%";
-  document.getElementById("tg").style.width=g+"%";
-  document.getElementById("tt").textContent="Fortschritt. Gemeistert: "+T.m+" von "+T.n+" Themen ("+g+" %)";
+    var h=el("button","head");h.type="button";h.setAttribute("aria-expanded",openCat===c.id);
+    h.appendChild(el("span","c",s.m+" von "+s.n+" gemeistert"));
+    var t=el("span","t",c.title);if(i===cur)t.appendChild(el("span","badge","Jetzt dran"));h.appendChild(t);
+    h.onclick=function(){openCat=openCat===c.id?null:c.id;render()};
+    card.append(h,bars(s.p,s.g));
+    var body=el("div","body"),ac=el("div","acts");
+    ac.append(btn("Umbenennen",function(){var n=prompt("Neuer Name:",c.title);if(n&&n.trim()){c.title=n.trim().slice(0,60);save();render()}}),
+      btn("↑ Nach oben",function(){if(i>0){state.cats.splice(i-1,0,state.cats.splice(i,1)[0]);save();render()}}),
+      btn("↓ Nach unten",function(){if(i<state.cats.length-1){state.cats.splice(i+1,0,state.cats.splice(i,1)[0]);save();render()}}),
+      btn("Kategorie löschen",function(){if(confirm("„"+c.title+"“ mit allen Themen löschen?")){state.cats.splice(i,1);save();render()}}));
+    body.appendChild(ac);
+    c.topics.forEach(function(tp){body.appendChild(topicBlock(c,tp))});
+    var add=el("form","add"),inp=el("input");inp.type="text";inp.placeholder="Neues Thema in „"+c.title+"“";inp.setAttribute("aria-label","Neues Thema");inp.maxLength=80;
+    var ab=el("button","primary","Hinzufügen");ab.type="submit";add.append(inp,ab);
+    add.onsubmit=function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;c.topics.push({id:uid(),name:v,skill:0,w:1,links:[],note:"",draw:[]});save();render()};
+    body.appendChild(add);card.appendChild(body);li.appendChild(card);road.appendChild(li)});
+  var all=[];state.cats.forEach(function(c){all=all.concat(c.topics)});var T=stat(all);
+  document.getElementById("tp").textContent=T.p+" %";
+  document.getElementById("tb").style.width=T.p+"%";document.getElementById("tg").style.width=T.g+"%";
+  document.getElementById("tt").textContent="Fortschritt. Gemeistert: "+T.m+" von "+T.n+" Themen ("+T.g+" %)";
 }
-document.getElementById("rs").onclick=function(){if(confirm("Alle Änderungen verwerfen und die Anfangs-Roadmap laden?")){state=norm(fresh());openStage=null;openTopic=null;save();render()}};
-state=norm(load());render();
+document.getElementById("cf").onsubmit=function(e){e.preventDefault();var i=document.getElementById("cn"),v=i.value.trim();if(!v)return;
+  var c={id:uid(),title:v,topics:[]};state.cats.push(c);openCat=c.id;i.value="";save();render()};
+document.getElementById("rs").onclick=function(){if(confirm("Wirklich ALLES löschen (Kategorien, Themen, Links, Zeichnungen)?")){state=fresh();openCat=null;openTopic=null;save();render()}};
+
 function showAuth(show){document.getElementById("auth").hidden=!show;document.getElementById("lo").hidden=show}
 function authMsg(e){var c=e&&e.code||"";
   if(c==="auth/invalid-credential"||c==="auth/wrong-password"||c==="auth/user-not-found")return "E-Mail oder Passwort stimmt nicht.";
@@ -206,7 +242,7 @@ function onUser(user){
   if(unsub){unsub();unsub=null}
   if(!user){remote=null;showAuth(true);setSync("Nicht angemeldet. Dein Stand ist nur auf diesem Gerät gespeichert.");return}
   showAuth(false);
-  var ref=fb.F.doc(fb.db,"users",user.uid,"data","roadmap");
+  var ref=fb.F.doc(fb.db,"users",user.uid,"data","roadmap3");
   remote=ref;setSync("Verbinde …");
   unsub=fb.F.onSnapshot(ref,function(snap){
     if(snap.metadata.hasPendingWrites)return;
@@ -233,7 +269,7 @@ document.getElementById("af").onsubmit=function(ev){ev.preventDefault();if(!fb)r
 document.getElementById("su").onclick=function(){if(!fb)return;
   fb.Au.createUserWithEmailAndPassword(fb.auth,document.getElementById("em").value.trim(),document.getElementById("pw").value).catch(function(e){setSync(authMsg(e))})};
 document.getElementById("lo").onclick=function(){if(fb)fb.Au.signOut(fb.auth)};
-startSync();
+state=load();render();startSync();
 if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
 })();
 </script>
